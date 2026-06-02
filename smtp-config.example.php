@@ -10,10 +10,10 @@ return [
     'host' => 'smtp.gmail.com',
     'port' => 587,
     'secure' => 'tls',
-    'username' => 'aamer.arshad786@gmail.com',
+    'username' => 'info@uiconsultancy.com',
     'password' => 'Pakistan@1992',
-    'from_email' => 'aamer.arshad786@gmail.com',
+    'from_email' => 'info@uiconsultancy.com',
     'from_name' => 'U & I Consultancy Website',
-    'to_email' => 'aamer.arshad786@gmail.com',
+    'to_email' => 'info@uiconsultancy.com',
     'to_name' => 'U & I Consultancy',
 ];

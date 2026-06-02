@@ -44,7 +44,7 @@ document.querySelectorAll("form").forEach((form) => {
     if (!form.action || !form.action.endsWith("send-email.php")) {
       const mailtoSubject = encodeURIComponent("Website inquiry from U & I Consultancy");
       const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-      window.location.href = `mailto:aamer.arshad786@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+      window.location.href = `mailto:info@uiconsultancy.com?subject=${mailtoSubject}&body=${mailtoBody}`;
       return;
     }
 
@@ -95,7 +95,7 @@ function sendWithServer(form, setStatus) {
     })
     .catch((error) => {
       setStatus(
-        `${error.message} Please email us directly at aamer.arshad786@gmail.com.`,
+        `${error.message} Please email us directly at info@uiconsultancy.com.`,
         "error"
       );
     });
