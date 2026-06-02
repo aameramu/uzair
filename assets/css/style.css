@@ -123,6 +123,7 @@ img {
   min-height: 420px;
   padding: 96px 24px;
   text-align: center;
+  background: url(../images/background/buildings.jpg);
 }
 
 .hero.compact {
@@ -133,6 +134,8 @@ img {
 .hero-inner {
   margin: 0 auto;
   max-width: 900px;
+  background: linear-gradient(rgba(17, 24, 39, 0.62), rgba(35, 123, 139, 0.44)), radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.34), transparent 28%), linear-gradient(135deg, #237b8b, #4fb1c3 48%, #f3923d);
+opacity: 0.96;
 }
 
 .hero-card {
