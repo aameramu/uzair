@@ -41,6 +41,14 @@ document.querySelectorAll("form").forEach((form) => {
       submitButton.textContent = isSending ? "Sending..." : "Send Message";
     };
 
+    if (window.location.protocol === 'file:') {
+      setStatus(
+        'Please open this site through a local PHP web server (for example http://localhost:8000) to use server email.',
+        'error'
+      );
+      return;
+    }
+
     if (!form.action || !form.action.endsWith("send-email.php")) {
       const mailtoSubject = encodeURIComponent("Website inquiry from U & I Consultancy");
       const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
@@ -51,29 +59,34 @@ document.querySelectorAll("form").forEach((form) => {
     setStatus("Sending message...");
     setSending(true);
 
-    if (hasEmailJsConfig) {
-      emailjs
-        .sendForm(emailJsConfig.serviceId, emailJsConfig.templateId, form, {
-          publicKey: emailJsConfig.publicKey
-        })
-        .then(() => {
-          setStatus("Thank you. Your message has been sent.", "success");
-          form.reset();
-        })
-        .catch((error) => {
-          const detail = error?.text || error?.message || "EmailJS could not send the message.";
-          setStatus(`${detail} Trying server email...`, "error");
-          return sendWithServer(form, setStatus);
-        })
-        .finally(() => {
-          setSending(false);
-        });
-      return;
-    }
+    sendWithServer(form, setStatus)
+      .catch((serverError) => {
+        if (!hasEmailJsConfig) {
+          throw serverError;
+        }
 
-    sendWithServer(form, setStatus).finally(() => {
-      setSending(false);
-    });
+        setStatus("Server email failed, trying EmailJS...", "error");
+        return emailjs
+          .sendForm(emailJsConfig.serviceId, emailJsConfig.templateId, form, {
+            publicKey: emailJsConfig.publicKey
+          })
+          .then(() => {
+            setStatus("Thank you. Your message has been sent.", "success");
+            form.reset();
+          })
+          .catch(() => {
+            throw serverError;
+          });
+      })
+      .catch((error) => {
+        setStatus(
+          `${error.message} Please email us directly at info@uiconsultancy.com.`,
+          "error"
+        );
+      })
+      .finally(() => {
+        setSending(false);
+      });
   });
 });
 
@@ -98,5 +111,6 @@ function sendWithServer(form, setStatus) {
         `${error.message} Please email us directly at info@uiconsultancy.com.`,
         "error"
       );
+      throw error;
     });
 }
