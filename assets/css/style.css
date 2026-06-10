@@ -103,6 +103,67 @@ img {
   color: var(--blue);
 }
 
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown > a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-dropdown > a::after {
+  content: '▼';
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover > a::after {
+  transform: rotate(-180deg);
+}
+
+.dropdown-menu {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(35, 123, 139, 0.15);
+  display: none;
+  list-style: none;
+  min-width: 220px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  z-index: 10;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  border-bottom: 1px solid var(--line);
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a {
+  color: var(--ink);
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  background: var(--teal-soft);
+  color: var(--teal-dark);
+}
+
 .nav-links .contact-link {
   background: var(--orange);
   color: var(--white);
@@ -489,7 +550,7 @@ button {
 .footer-grid {
   display: grid;
   gap: 32px;
-  grid-template-columns: 1.3fr 1fr 1fr 1.4fr;
+  grid-template-columns: 1.3fr 1fr 1fr 1.4fr 1.2fr;
   padding: 52px 24px 36px;
 }
 
@@ -518,6 +579,41 @@ button {
   padding: 24px;
   text-align: center;
 }
+
+.social-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--teal);
+  transform: scale(1.1);
+}
+
+.social-links svg {
+  width: 18px;
+  height: 18px;
+}
+
+.follow-us-section h4 {
+  margin-bottom: 12px;
+}
+
 
 .whatsapp {
   align-items: center;
@@ -573,9 +669,12 @@ button {
   .grid-4,
   .story,
   .featured-article,
-  .contact-box,
-  .footer-grid {
+  .contact-box {
     grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero-card {
@@ -601,5 +700,13 @@ button {
   .card,
   .contact-box {
     padding: 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
   }
 }
